@@ -5,7 +5,6 @@ import com.example.desafiopicpay.domain.entities.User;
 import com.example.desafiopicpay.domain.repositories.TransactionRepository;
 import com.example.desafiopicpay.rest.dtos.TransactionDTO;
 import com.example.desafiopicpay.services.exceptions.UnauthorizedTransaction;
-import com.example.desafiopicpay.services.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,10 @@ public class TransactionService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Transaction insertTransaction (TransactionDTO transactionDTO) throws UnauthorizedTransaction, UserNotFoundException {
+    @Autowired
+    private NotificationService notificationService;
+
+    public Transaction insertTransaction (TransactionDTO transactionDTO) throws Exception {
         User sender = userService.findUserById(transactionDTO.senderId());
         User receiver = userService.findUserById(transactionDTO.receiverId());
 
@@ -52,6 +54,9 @@ public class TransactionService {
         this.transactionRepository.save(transaction);
         this.userService.saveUser(sender);
         this.userService.saveUser(receiver);
+
+        this.notificationService.sendNotification(sender, "Transação realizada com sucesso!");
+        this.notificationService.sendNotification(receiver, "Transação realizada com sucesso!");
 
         return transaction;
     }
