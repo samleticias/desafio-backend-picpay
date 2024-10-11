@@ -3,6 +3,7 @@ package com.example.desafiopicpay.rest.controllers;
 import com.example.desafiopicpay.domain.entities.User;
 import com.example.desafiopicpay.rest.dtos.UserDTO;
 import com.example.desafiopicpay.services.UserService;
+import com.example.desafiopicpay.services.exceptions.EmailAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) throws EmailAlreadyExistsException {
         User user = userService.insertUser(userDTO);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
