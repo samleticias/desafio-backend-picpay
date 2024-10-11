@@ -27,7 +27,7 @@ public class TransactionService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Transaction createTransaction (TransactionDTO transactionDTO) throws UnauthorizedTransaction, UserNotFoundException {
+    public Transaction insertTransaction (TransactionDTO transactionDTO) throws UnauthorizedTransaction, UserNotFoundException {
         User sender = userService.findUserById(transactionDTO.senderId());
         User receiver = userService.findUserById(transactionDTO.receiverId());
 
