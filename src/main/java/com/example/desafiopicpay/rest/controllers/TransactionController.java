@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -21,6 +23,12 @@ public class TransactionController {
     public ResponseEntity<Transaction> createTransaction (@RequestBody TransactionDTO transactionDTO) throws UserNotFoundException, UnauthorizedTransaction {
         Transaction transaction = transactionService.insertTransaction(transactionDTO);
         return ResponseEntity.ok(transaction);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Transaction>> getAllTransactions(){
+        List<Transaction> transactions = transactionService.getAll();
+        return ResponseEntity.ok(transactions);
     }
 
 }
