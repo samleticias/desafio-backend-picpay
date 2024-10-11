@@ -35,7 +35,7 @@ public class UserService {
         return user;
     }
 
-    public void authorizeTransaction(User sender, BigDecimal amount) throws UnauthorizedTransaction {
+    public void checkTransaction(User sender, BigDecimal amount) throws UnauthorizedTransaction {
         if (sender.getUserCategory() == UserCategory.MERCHANT){
             throw new UnauthorizedTransaction("Não é permitida a realização de transação por Usuário do Tipo Lojista.");
         }
