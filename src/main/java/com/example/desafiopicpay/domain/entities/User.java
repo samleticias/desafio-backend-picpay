@@ -3,8 +3,19 @@ package com.example.desafiopicpay.domain.entities;
 import com.example.desafiopicpay.domain.entities.enums.UserCategory;
 import com.example.desafiopicpay.rest.dtos.UserDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Entity(name = "users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
