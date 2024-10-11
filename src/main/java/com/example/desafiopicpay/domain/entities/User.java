@@ -1,9 +1,8 @@
 package com.example.desafiopicpay.domain.entities;
 
 import com.example.desafiopicpay.domain.entities.enums.UserCategory;
+import com.example.desafiopicpay.rest.dtos.UserDTO;
 import jakarta.persistence.*;
-import org.hibernate.usertype.UserType;
-
 import java.math.BigDecimal;
 
 public class User {
@@ -21,4 +20,15 @@ public class User {
     private BigDecimal balance;
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
+
+    public User(UserDTO userDTO){
+        this.firstName = userDTO.firstName();
+        this.lastName = userDTO.lastName();
+        this.email = userDTO.email();
+        this.password = userDTO.password();
+        this.phone = userDTO.phone();
+        this.userCategory = userDTO.userCategory();
+        this.balance = userDTO.balance();
+        this.document = userDTO.document();
+    }
 }
